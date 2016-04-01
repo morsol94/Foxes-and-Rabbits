@@ -1,3 +1,5 @@
+package foxes.and.rabbits;
+
 import java.awt.Color;
 
 /**

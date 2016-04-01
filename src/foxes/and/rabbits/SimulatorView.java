@@ -1,3 +1,5 @@
+package foxes.and.rabbits;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -54,6 +56,7 @@ public class SimulatorView extends JFrame
         contents.add(stepLabel, BorderLayout.NORTH);
         contents.add(fieldView, BorderLayout.CENTER);
         contents.add(population, BorderLayout.SOUTH);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setVisible(true);
     }

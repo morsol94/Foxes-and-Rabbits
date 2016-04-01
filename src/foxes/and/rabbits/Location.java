@@ -1,3 +1,5 @@
+package foxes.and.rabbits;
+
 /**
  * Represent a location in a rectangular grid.
  * 

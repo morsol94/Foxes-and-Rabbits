@@ -1,3 +1,5 @@
+package foxes.and.rabbits;
+
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
