@@ -11,7 +11,7 @@ import java.util.Random;
  * @author David J. Barnes and Michael Kölling
  * @version 2011.07.31
  */
-public class Fox
+public class Fox extends Animale
 {
     // Characteristics shared by all foxes (class variables).
     
@@ -33,12 +33,6 @@ public class Fox
 
     // The fox's age.
     private int age;
-    // Whether the fox is alive or not.
-    private boolean alive;
-    // The fox's position.
-    private Location location;
-    // The field occupied.
-    private Field field;
     // The fox's food level, which is increased by eating rabbits.
     private int foodLevel;
 
@@ -52,16 +46,14 @@ public class Fox
      */
     public Fox(boolean randomAge, Field field, Location location)
     {
+        super(location,field);
         age = 0;
-        alive = true;
-        this.field = field;
-        setLocation(location);
         if(randomAge) {
             age = rand.nextInt(MAX_AGE);
             foodLevel = rand.nextInt(RABBIT_FOOD_VALUE);
         }
         else {
-            // leave age at 0
+            age = 0;
             foodLevel = rand.nextInt(RABBIT_FOOD_VALUE);
         }
     }
@@ -73,7 +65,8 @@ public class Fox
      * @param field The field currently occupied.
      * @param newFoxes A list to return newly born foxes.
      */
-    public void hunt(List<Fox> newFoxes)
+    @Override
+    public void act(List<Animale> newFoxes)
     {
         incrementAge();
         incrementHunger();
@@ -96,36 +89,6 @@ public class Fox
         }
     }
 
-    /**
-     * Check whether the fox is alive or not.
-     * @return True if the fox is still alive.
-     */
-    public boolean isAlive()
-    {
-        return alive;
-    }
-
-    /**
-     * Return the fox's location.
-     * @return The fox's location.
-     */
-    public Location getLocation()
-    {
-        return location;
-    }
-    
-    /**
-     * Place the fox at the new location in the given field.
-     * @param newLocation The fox's new location.
-     */
-    private void setLocation(Location newLocation)
-    {
-        if(location != null) {
-            field.clear(location);
-        }
-        location = newLocation;
-        field.place(this, newLocation);
-    }
     
     /**
      * Increase the age. This could result in the fox's death.
@@ -212,7 +175,7 @@ public class Fox
      * New births will be made into free adjacent locations.
      * @param newFoxes A list to return newly born foxes.
      */
-    private void giveBirth(List<Fox> newFoxes)
+    private void giveBirth(List<Animale> newFoxes)
     {
         // New foxes are born into adjacent locations.
         // Get a list of adjacent free locations.
@@ -247,17 +210,4 @@ public class Fox
         return age >= BREEDING_AGE;
     }
 
-    /**
-     * Indicate that the fox is no longer alive.
-     * It is removed from the field.
-     */
-    private void setDead()
-    {
-        alive = false;
-        if(location != null) {
-            field.clear(location);
-            location = null;
-            field = null;
-        }
-    }
 }
